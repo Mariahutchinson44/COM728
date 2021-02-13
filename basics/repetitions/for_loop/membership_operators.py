@@ -7,9 +7,9 @@ phrase = input()
 print("\nReversing...\n")
 # placed before the for loop as only want it to display once and on the same line
 print(f"The phrase is:", end="")
-# highest position is len(phrase) -1.
-# Stop position is -1 otherwise will not display index position zero
-# Stepping down in -1 increments
-for position in range(len(phrase) -1, -1, -1):
+reversed = ""
+for character in phrase:
     # displays phrase in reverse on same line
-    print(phrase[position], end="")
+    reversed = character + reversed
+print(reversed)
+# I did struggle to understand WHY and HOW this reversed but my son explained
