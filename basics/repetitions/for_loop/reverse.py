@@ -1,4 +1,4 @@
-# We wish to create a program that allows us to display a phrase in reverse.
+# We wish to create a program that allows us to display a phrase in reverse
 # displaying the message to ask user for the phrase
 print("What phrase do you see?")
 # read in the user's response
