@@ -9,7 +9,7 @@ code = int(input())
 # You should use the keyword in and the built-in function range to help you with this.
 # If the number in within the range then the program should
 if code >=32 and code <= 126:
-    # determine the ASCII character from the number using the built-in function chr() .
+    # determine the ASCII character from the number using the built-in function chr() to covert.
     # display the message "The character represented by the ASCII code {code} is {character}." where {code} is the number entered by the user and {character} is the ASCII character represented by the number.
     print(f"The character represented by the ASCII value {code} is {chr(code)}")
     # Otherwise, if the number is within the range then the program should
