@@ -26,13 +26,14 @@ def display_mirrored(word):
 def repeat(word):
     print("How many times should the word be repeated")
     times = int(input())
-    #
     for repeat in range(times):
         #if number % 2 == 0 it is an even number
         if repeat % 2 == 0:
+            # calls function which will print lower case word
             display_lower_case(word)
         # odd repeat
         else:
+            # calls function which will print upper case word
             display_upper_case(word)
 
 def run():
