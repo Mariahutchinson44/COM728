@@ -14,4 +14,4 @@ def run():
     for position in range(len(phrase) -1, -1, -1):
         # displays phrase in reverse on same line
         print(phrase[position], end="")
-        print()
+
