@@ -10,6 +10,11 @@ import basics.input.user_input as user_input
 import basics.decisions.review as review_decisions
 import basics.decisions.or_operator as or_operator
 import basics.decisions.and_operator as and_operator
+import basics.decisions.simple_decision.comparison_operators as comparison_operators
+import basics.decisions.simple_decision.counter as counter
+import basics.decisions.simple_decision.if_elif as if_elif
+import basics.decisions.simple_decision.if_else as if_else
+import basics.decisions. simple_decision.modulo_operator as modulo_operator
 
 def run_block_a():
     print("Which program in 'Block A: Basics' do you wish to run?")
@@ -38,10 +43,16 @@ def run_block_a():
         or_operator.run()
     elif response == "and_operator":
         and_operator.run()
-
-
-
-
+    elif response == "comparison_operators":
+        comparison_operators.run()
+    elif response == "counter":
+        counter.run()
+    elif response == "if_elif":
+        if_elif.run()
+    elif response == "if_else":
+        if_else.run()
+    elif response == "modulo_operator":
+        modulo_operator.run()
 
 def run():
 
