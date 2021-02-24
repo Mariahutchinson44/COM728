@@ -18,6 +18,21 @@ import basics.decisions. simple_decision.modulo_operator as modulo_operator
 import basics.decisions.nested_decision.nestception as nestception
 import basics.decisions.nested_decision.nested as nested
 import basics.repetition.for_loop.count_down as count_down
+import basics.repetitions.for_loop.characters as characters
+import basics.repetitions.for_loop.membership_operators as membership_operators
+import basics.repetitions.for_loop.range as range
+import basics.repetitions.for_loop.reverse as reverse
+import basics.repetitions.for_loop.simple as simple_for
+import basics.repetitions.nested_loop.nested as nested_loop
+import basics.repetitions.nested_loop.nesting as nesting
+import basics.repetitions.while_loop.ascii as ascii_while
+import basics.repetitions.while_loop.count as count
+import basics.repetitions.while_loop.factorial as factorial
+import basics.repetitions.while_loop.len as len
+import basics.repetitions.while_loop.simple as simple_while
+import basics.repetitions.while_loop.sum_100 as sum_100
+import basics.repetitions.while_loop.sum_user_numbers as sum_user_numbers
+
 
 def run_block_a():
     print("Which program in 'Block A: Basics' do you wish to run?")
@@ -62,6 +77,35 @@ def run_block_a():
         nested.run()
     elif response == "count_down":
         count_down.run()
+    elif response == "characters":
+        characters.run()
+    elif response == "membership_operators":
+        membership_operators.run()
+    elif response == "range":
+        range.run()
+    elif response == "reverse":
+        reverse.run()
+    elif response == "simple_for":
+        simple_for.run()
+    elif response == "nested_loop":
+        nested_loop.run()
+    elif response == "nesting":
+        nesting.run()
+    elif response == "ascii_while":
+        ascii_while.run()
+    elif response == "count":
+        count.run()
+    elif response == "factorial"
+        factorial.run()
+    elif response == "len":
+       len.run()
+    elif response == "simple_while":
+        simple_while.run()
+    elif response == "sum_100":
+       sum_100.run()
+    elif response == "sum_user_numbers":
+        sum_user_numbers.run()
+
 
 def run():
 
