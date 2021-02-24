@@ -42,8 +42,7 @@ import basics.functions.function_with_parameters as function_with_parameters
 import basics.functions.multiple_functions as multiple_functions
 import basics.functions.return_values as return_values
 import basics.functions.simple_function as simple_function
-
-
+import basics.modules.guess_the_number as guess_the_number
 
 def run_block_a():
     print("Which program in 'Block A: Basics' do you wish to run?")
@@ -123,19 +122,23 @@ def run_block_a():
     elif response == "function_calls":
         function_calls.run()
     elif response == "function_with_loop":
-        function_with_loop
+        function_with_loop.run()
     elif response == "function_with_nesting":
-        function_with_nesting
+        function_with_nesting.run()
     elif response == "function_with_parameter":
-        function_with_parameter
+        function_with_parameter.run()
     elif response == "function_with_parameters":
-        function_with_parameters
+        function_with_parameters.run()
     elif response == "multiple_functions":
-        multiple_functions
+        multiple_functions.run()
     elif response == "return_values":
-        return_values
+        return_values.run()
     elif response == "simple_function":
-        simple_function
+        simple_function.run()
+    elif response == "guess_the_number":
+        guess_the_number.run()
+    else:
+        print("Invalid response! Please try again.")
 
 def run():
 
