@@ -15,6 +15,9 @@ import basics.decisions.simple_decision.counter as counter
 import basics.decisions.simple_decision.if_elif as if_elif
 import basics.decisions.simple_decision.if_else as if_else
 import basics.decisions. simple_decision.modulo_operator as modulo_operator
+import basics.decisions.nested_decision.nestception as nestception
+import basics.decisions.nested_decision.nested as nested
+import basics.repetition.for_loop.count_down as count_down
 
 def run_block_a():
     print("Which program in 'Block A: Basics' do you wish to run?")
@@ -53,6 +56,12 @@ def run_block_a():
         if_else.run()
     elif response == "modulo_operator":
         modulo_operator.run()
+    elif response == "nestception":
+        nestception.run()
+    elif response == "nested":
+        nested.run()
+    elif response == "count_down":
+        count_down.run()
 
 def run():
 
