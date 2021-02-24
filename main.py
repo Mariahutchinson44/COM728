@@ -32,6 +32,17 @@ import basics.repetitions.while_loop.len as len
 import basics.repetitions.while_loop.simple as simple_while
 import basics.repetitions.while_loop.sum_100 as sum_100
 import basics.repetitions.while_loop.sum_user_numbers as sum_user_numbers
+import basics.functions.ascii_character as ascii_character
+import basics.functions.ascii_code as ascii_code
+import basics.functions.function_calls as function_calls
+import basics.functions.function_with_loop as function_with_loop
+import basics.functions.function_with_nesting as function_with_nesting
+import basics.functions.function_with_parameter as function_with_parameter
+import basics.functions.function_with_parameters as function_with_parameters
+import basics.functions.multiple_functions as multiple_functions
+import basics.functions.return_values as return_values
+import basics.functions.simple_function as simple_function
+
 
 
 def run_block_a():
@@ -95,7 +106,7 @@ def run_block_a():
         ascii_while.run()
     elif response == "count":
         count.run()
-    elif response == "factorial"
+    elif response == "factorial":
         factorial.run()
     elif response == "len":
        len.run()
@@ -105,7 +116,26 @@ def run_block_a():
        sum_100.run()
     elif response == "sum_user_numbers":
         sum_user_numbers.run()
-
+    elif response == "ascii_character":
+        ascii_character.run()
+    elif response == "ascii_code":
+        ascii_code.run()
+    elif response == "function_calls":
+        function_calls.run()
+    elif response == "function_with_loop":
+        function_with_loop
+    elif response == "function_with_nesting":
+        function_with_nesting
+    elif response == "function_with_parameter":
+        function_with_parameter
+    elif response == "function_with_parameters":
+        function_with_parameters
+    elif response == "multiple_functions":
+        multiple_functions
+    elif response == "return_values":
+        return_values
+    elif response == "simple_function":
+        simple_function
 
 def run():
 

@@ -1,3 +1,4 @@
+
 # displays word in a box
 def display_in_box(word):
     message = f"* {word} *"
@@ -61,4 +62,4 @@ def run():
         repeat(word)
     else:
         print("Invalid option")
-run()
+# run()

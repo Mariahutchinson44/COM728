@@ -1,4 +1,4 @@
-def run()
+def run():
     # Enter first number
     print("Please enter a first whole number.")
     first_number = int(input())

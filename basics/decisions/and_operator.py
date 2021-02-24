@@ -1,4 +1,4 @@
-def run()
+def run():
     # Ask what Beep heard
     print("What did I hear?")
     noise = input()
