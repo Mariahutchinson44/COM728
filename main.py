@@ -1,3 +1,4 @@
+# import functions from block A
 import basics.output.simple_message as simple_message
 import basics.output.multiline_message as multiline_message
 import basics.output.escape_characters as escape_characters
@@ -43,7 +44,7 @@ import basics.functions.multiple_functions as multiple_functions
 import basics.functions.return_values as return_values
 import basics.functions.simple_function as simple_function
 import basics.modules.guess_the_number as guess_the_number
-
+# call the function based on user response
 def run_block_a():
     print("Which program in 'Block A: Basics' do you wish to run?")
     response = input()
@@ -139,20 +140,20 @@ def run_block_a():
         guess_the_number.run()
     else:
         print("Invalid response! Please try again.")
-
+# function to ask user to choose an action
 def run():
-
+    # ask for user input
     while(True):
         print("What would you like to do?")
         print("[a] Run 'Block A: Basics' programs")
         print("[q] Quit")
         response = input()
-
+        # decision based on user input
         if response == "a":
             run_block_a()
         elif response == "q":
             break
         else:
             print("Invalid option! Please try again.")
-
+# run the program
 run()
