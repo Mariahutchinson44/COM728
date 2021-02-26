@@ -1,7 +1,10 @@
 Section:  The Law Section
-The Magna Carta
 Section: The Technology Section
+Section: The History Section
+
+
+Book:
+The Magna Carta
 How to build a robot
 How to build a flying car
-Section: The History Section
 The history of everything
