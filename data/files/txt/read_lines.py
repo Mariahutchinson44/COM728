@@ -4,7 +4,7 @@ def search(file_name):
     print("Searching...")
 
     # The function should then open the specified file for reading.
-    with open("library.txt") as file:
+    with open(file_name) as file:
         #For each line in the file:
         for line in file:
             location = line.strip()
