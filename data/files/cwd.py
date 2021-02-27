@@ -16,11 +16,13 @@ def cwd():
     for file in os.listdir(path):
         print(file)
 
-#The second function should be named run and should have no parameters.
+
+# The second function should be named run and should have no parameters.
 def run():
     # display the message
     print("Processing...")
     # call the first function.
     cwd()
+
 
 run()
