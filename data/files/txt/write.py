@@ -39,9 +39,9 @@ def save(file_path, data):
 
 # The third function should be named run and should have no parameters.
 def run():
-    # The function should call the first function with the file path "data/files/txt/books.txt" and store the value returned by the function in a local variable named data.
+    # The function should call the first function with the file path
     data = search("books.txt")
-    # The function should then pass the variable as an argument to the second function along with the filename "data/files/txt/section-books.txt".
+    # The function should then pass the variable as an argument to the second function
     save("section-books.txt", data)
 
 
