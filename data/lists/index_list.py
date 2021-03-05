@@ -18,4 +18,5 @@ def run():
     # where {direction} is the direction of movement and {steps} is the number of steps to move.
 
 
-run()
+if __name__ == "__main__":
+    run()
