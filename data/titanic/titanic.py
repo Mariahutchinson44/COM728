@@ -42,6 +42,7 @@ def display_passenger_names():
         passenger_name = record[3]
         print(passenger_name)
 
+# increment variable for each survivor and display total
 def display_num_survivors():
     num_survived = 0
     for record in records:
@@ -49,6 +50,18 @@ def display_num_survivors():
         if survival_status == "1":
             num_survived += 1
     print(f"{num_survived} passengers survived.")
+
+# increment variables for male/female and display results
+def display_passengers_per_gender():
+    females = 0
+    males = 0
+    for record in records:
+        gender = record[4]
+        if gender == "male":
+            males += 1
+        else:
+            females += 1
+    print(f"females: {females}, males: {males}")
 
 def run():
     num_records = load_data("titanic.csv")
@@ -60,6 +73,9 @@ def run():
     elif selected_option == 2:
         print(f"You have selected option: {selected_option}\n")
         display_num_survivors()
+    elif selected_option == 3:
+        print(f"You have selected option: {selected_option}\n")
+        display_passengers_per_gender()
     else:
         print("Error! Option not recognised!")
 
