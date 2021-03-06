@@ -22,7 +22,7 @@ def load_data(file_path):
             num_records = num_records + 1
     print("Done!")
     return num_records
-
+# Display options and return user response (an integer)
 def display_menu():
     print("""
     Please select one of the following options:
@@ -35,6 +35,7 @@ def display_menu():
     response = int(input())
     return response
 
+# print passenger names is user response selected option 1
 def display_passenger_names():
     print("The names of the passengers are...\n")
     for record in records:
