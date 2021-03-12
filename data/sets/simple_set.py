@@ -5,7 +5,7 @@ from typing import Set
 
 def observed():
     # The function should create a set named observations
-    observations = set(["Flying Car", "Sky Scraper", "Sky Scraper", "Laser", "Dome", "Dome"])
+    observations = {"Flying Car", "Sky Scraper", "Sky Scraper", "Laser", "Dome", "Dome"}
     # Finally, the function should return the set observations.
     return observations
 
