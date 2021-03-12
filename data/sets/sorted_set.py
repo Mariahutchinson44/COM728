@@ -42,6 +42,8 @@ def run():
         observations_set.add(data)
         #duplicates will be ignored
         # Finally, the function should display the content of the set.
+    sorted(observations_set)
+
     for data in observations_set:
         print(f"{data[0]} observed {data[1]} times.")
 
