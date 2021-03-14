@@ -46,9 +46,4 @@ def display_years(years):
     for year in sorted_years:
         print(year)
 
-error("Invalid Selection!")
-menu()
-display_medal_tally({'Gold': 1, 'Silver': 3, 'Bronze': 4})
 
-display_team_medal_tally({'United Kingdom': {'Gold': 10, 'Silver': 5, 'Bronze': 2}})
-display_years((2000, 2000, 2001, 2003))

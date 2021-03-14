@@ -18,19 +18,20 @@ def read_data(file_path):
 
 def run():
     athlete_data = read_data("athlete_events.csv")
-
+    # keeps repeating unless break
     while True:
         selection = tui.menu()
         if selection == "years":
-            pass
+            process.list_years(athlete_data)
         elif selection == "tally":
-            pass
+            process.tally_medals(athlete_data)
         elif selection == "team":
-            pass
+            process.tally_team_medals(athlete_data)
         elif selection == "exit":
             break
         else:
             tui.error("Invalid Selection!")
+
 
 
 if __name__ == "__main__":
