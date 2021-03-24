@@ -22,17 +22,19 @@ def insert_bot_in_db(data):
     sql = "INSERT INTO users " \
         "(name, maximum_speed, maximum_strength, date, manufacturer_id)"\
         "VALUES"\
-        f"('{data[0]}', {data[1]}, {data[2]}, '{data[3]}', {data[4]});"
+        f"(?, ?, ?, ?, ?);"
 
-    cursor.execute(sql)
-
+    values = [data[0], data[1], data[2], data[3], data[4]]
+    cursor.execute(sql, values)
     db.commit()
 
     row_id = cursor.lastrowid
+    db.close()
+
     print("The record has been added to the database.")
     print(f"The record id is {row_id}")
 
-    db.close()
+
 
 
 def run():
