@@ -37,6 +37,9 @@ def update_bot_in_db(bot_id, details):
     cursor = db.cursor()
     sql = f"UPDATE users SET {details[0]}='{details[1]}' WHERE id={bot_id}"
     cursor.execute(sql)
+    # sql = "UPDATE users SET ?=? WHERE id=?"
+    # values = [details[0], details[1], bot_id]
+    cursor.execute(sql)
 
     db.commit()
     db.close()

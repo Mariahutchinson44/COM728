@@ -23,13 +23,13 @@ def insert_to_db(bot_data):
         sql = "INSERT INTO users " \
             "(name, maximum_speed, maximum_strength, date, manufacturer_id)" \
             "VALUES" \
-            f"('{data[0]}', {data[1]}, {data[2]}, '{data[3]}', {data[4]});"
+            f"(?, ?, ?, ?, ?);"
+        values = [data[0], data[1], data[2], data[3], data[4]]
+        cursor.execute(sql,values)
 
-        cursor.execute(sql)
-
-        db.commit()
-    print("Done! 3 records inserted.")
+    db.commit()
     db.close()
+    print("Done! 3 records inserted.")
 
 
 def run():
