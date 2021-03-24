@@ -1,6 +1,5 @@
 import sqlite3
 
-
 def retrieve_bots(num_bots=None):
     # connect to database
     db = sqlite3.connect("sqlite/bots.db")
@@ -19,8 +18,6 @@ def retrieve_bots(num_bots=None):
 
     for record in records:
         print(record)
-
-
 
 def run():
     print("First 3 bots in the system:")
