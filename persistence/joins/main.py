@@ -7,6 +7,7 @@ def menu():
     Please select one of the following options:
     [1] Display stock levels
     [2] Display suppliers
+    [3] Display supplier locations
   
     Your selection:
     """)
@@ -20,6 +21,8 @@ def run():
         database.display_products_with_stock_levels()
     elif response == 2:
         database.display_product_supplier()
+    elif response == 3:
+        database.display_product_supplier_locations()
     else:
         print("Invalid selection")
 

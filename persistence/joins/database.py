@@ -41,3 +41,24 @@ def display_product_supplier():
         print(f"""
         Product: {record[0]}, Supplier: {record[1]}
         """)
+
+
+def display_product_supplier_locations():
+    # display each product with its supplier and location
+    db = sqlite3.connect("catalogue.db")
+    cursor = db.cursor()
+    sql = "SELECT product.name, supplier.name, city, country " \
+          "FROM product " \
+          "LEFT OUTER JOIN supplier ON product.supplier_id = supplier.id, " \
+          "location ON supplier.location_id = location.id"
+
+    cursor.execute(sql)
+    records = cursor.fetchall()
+    db.close()
+    print("The suppliers for each product are as follows:")
+
+    for record in records:
+        print(f"""
+        Product: {record[0]}, Supplier: {record[1]}, Supplier Location: {record[2]}, {record[3]}
+        """)
+
