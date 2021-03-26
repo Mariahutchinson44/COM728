@@ -30,7 +30,7 @@ def display_product_supplier():
     cursor = db.cursor()
     sql = "SELECT product.name, supplier.name " \
           "FROM product " \
-          "LEFT OUTER JOIN supplier ON product.supplier_id = supplier.id"
+          "INNER JOIN supplier ON product.supplier_id = supplier.id"
 
     cursor.execute(sql)
     records = cursor.fetchall()
@@ -49,7 +49,7 @@ def display_product_supplier_locations():
     cursor = db.cursor()
     sql = "SELECT product.name, supplier.name, city, country " \
           "FROM product " \
-          "LEFT OUTER JOIN supplier ON product.supplier_id = supplier.id, " \
+          "INNER JOIN supplier ON product.supplier_id = supplier.id, " \
           "location ON supplier.location_id = location.id"
 
     cursor.execute(sql)
@@ -62,3 +62,19 @@ def display_product_supplier_locations():
         Product: {record[0]}, Supplier: {record[1]}, Supplier Location: {record[2]}, {record[3]}
         """)
 
+def display_products_missing_suppliers():
+    # display each product with its supplier
+    # use left outer join
+    db = sqlite3.connect("catalogue.db")
+    cursor = db.cursor()
+    sql = "SELECT product.name, supplier.name " \
+          "FROM product " \
+          "LEFT OUTER JOIN supplier ON product.supplier_id = supplier.id" \
+
+    cursor.execute(sql)
+    records = cursor.fetchall()
+    db.close()
+    print("The suppliers for each product are as follows:\n")
+
+    for record in records:
+        print(f"Product: {record[0]}, Supplier: {record[1]}")
