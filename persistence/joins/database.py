@@ -78,3 +78,20 @@ def display_products_missing_suppliers():
 
     for record in records:
         print(f"Product: {record[0]}, Supplier: {record[1]}")
+
+def display_suppliers_missing_products():
+    # display each product with its supplier
+    # use right outer join
+    db = sqlite3.connect("catalogue.db")
+    cursor = db.cursor()
+    sql = "SELECT product.name, supplier.name " \
+          "FROM supplier " \
+          "LEFT OUTER JOIN product ON product.supplier_id = supplier.id" \
+
+    cursor.execute(sql)
+    records = cursor.fetchall()
+    db.close()
+    print("The suppliers for each product are as follows:\n")
+
+    for record in records:
+        print(f"Supplier: {record[1]}, Product: {record[0]}")
