@@ -10,6 +10,7 @@ def menu():
     [3] Display supplier locations
     [4] Display missing suppliers
     [5] Display missing products
+    [6] Display missing data
   
     Your selection:
     """)
@@ -29,6 +30,8 @@ def run():
         database.display_products_missing_suppliers()
     elif response == 5:
         database.display_suppliers_missing_products()
+    elif response == 6:
+        database.display_missing_data()
     else:
         print("Invalid selection")
 
