@@ -1,1 +1,83 @@
-<mxfile host="app.diagrams.net" modified="2021-03-31T17:08:24.190Z" agent="5.0 (Macintosh)" version="14.5.3" etag="EL_AbNkbWmmLTpQ5Q92t" type="github"><diagram id="LiwJ15N01dgfeeIRayWH">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2021-03-31T18:04:12.469Z" agent="5.0 (Macintosh)" etag="KLFMlc_txiEvi4lkBHtj" version="14.5.4" type="github">
+  <diagram id="LiwJ15N01dgfeeIRayWH" name="Page-1">
+    <mxGraphModel dx="784" dy="964" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Hq5LUID9zLeDu0aCojfT-1" value="Presenter" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="190" y="60" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Hq5LUID9zLeDu0aCojfT-2" value="Event" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="190" y="150" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Hq5LUID9zLeDu0aCojfT-24" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeColor=#000000;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Hq5LUID9zLeDu0aCojfT-4" target="Hq5LUID9zLeDu0aCojfT-4">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="220" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Hq5LUID9zLeDu0aCojfT-4" value="Organisation" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="190" y="240" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Hq5LUID9zLeDu0aCojfT-9" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERoneToMany;entryX=1;entryY=0.75;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="Hq5LUID9zLeDu0aCojfT-4" target="Hq5LUID9zLeDu0aCojfT-2">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="230" y="260" as="sourcePoint" />
+            <mxPoint x="640" y="80" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Hq5LUID9zLeDu0aCojfT-10" value="Conceptual Design" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="185" y="20" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Hq5LUID9zLeDu0aCojfT-13" value="Location" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="190" y="320" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Hq5LUID9zLeDu0aCojfT-14" value="" style="fontSize=12;html=1;endArrow=ERoneToMany;strokeColor=#000000;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="Hq5LUID9zLeDu0aCojfT-13" target="Hq5LUID9zLeDu0aCojfT-4">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="170" y="350" as="sourcePoint" />
+            <mxPoint x="270" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Hq5LUID9zLeDu0aCojfT-15" value="&lt;div&gt;An organisation may host many events.&lt;/div&gt;&lt;div&gt;An event has only 1 host organisation.&lt;/div&gt;  " style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="360" y="190" width="230" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Hq5LUID9zLeDu0aCojfT-16" value="An event can be a presentation, workshop or seminar" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="355" y="160" width="310" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Hq5LUID9zLeDu0aCojfT-17" value="&lt;div&gt;Each event can have many presenters. &lt;br&gt;&lt;/div&gt;&lt;div&gt;A presenter may present at more than one event.&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="430" y="90" width="280" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Hq5LUID9zLeDu0aCojfT-18" value="One location can have many organisations" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="355" y="290" width="260" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Hq5LUID9zLeDu0aCojfT-23" value="" style="edgeStyle=orthogonalEdgeStyle;fontSize=12;html=1;endArrow=ERoneToMany;strokeColor=#000000;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="Hq5LUID9zLeDu0aCojfT-1">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="190" y="260" as="sourcePoint" />
+            <mxPoint x="60" y="60" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="190" y="260" />
+              <mxPoint x="150" y="260" />
+              <mxPoint x="150" y="80" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Hq5LUID9zLeDu0aCojfT-25" value="One organisation can have many presenters" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="10" y="145" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Hq5LUID9zLeDu0aCojfT-27" value="Event presenter" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="314" y="100" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Hq5LUID9zLeDu0aCojfT-28" value="" style="edgeStyle=orthogonalEdgeStyle;fontSize=12;html=1;endArrow=ERoneToMany;strokeColor=#000000;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="Hq5LUID9zLeDu0aCojfT-2" target="Hq5LUID9zLeDu0aCojfT-27">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="300" y="330" as="sourcePoint" />
+            <mxPoint x="400" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Hq5LUID9zLeDu0aCojfT-29" value="" style="edgeStyle=orthogonalEdgeStyle;fontSize=12;html=1;endArrow=ERoneToMany;strokeColor=#000000;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Hq5LUID9zLeDu0aCojfT-1" target="Hq5LUID9zLeDu0aCojfT-27">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="300" y="330" as="sourcePoint" />
+            <mxPoint x="400" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
