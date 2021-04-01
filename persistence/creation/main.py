@@ -1,5 +1,16 @@
 import database as database
+import csv
 
+
+
+def load_csv_data():
+    events = []
+    with open("events.csv") as file:
+        csv_reader = csv.reader(file)
+        next(csv_reader)
+        for value in csv_reader:
+            events.append(value)
+    return events
 
 def menu():
     # display menu options and return integer
@@ -18,6 +29,9 @@ def menu():
 
 
 def run():
+    events = load_csv_data()
+    database.load_database(events)
+
     response = menu()
     if response == 1:
         database.display_presenters()

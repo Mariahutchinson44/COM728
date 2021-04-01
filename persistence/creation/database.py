@@ -1,5 +1,88 @@
 import sqlite3
 
+def load_database(events):
+    # Locations
+    # Organisations
+    # Events
+    # Presenters
+    # Events_Presenters
+
+    for event in events:
+
+        db = sqlite3.connect("events.db")
+        cursor = db.cursor()
+
+        sql = "INSERT INTO locations " \
+              "(city, country) " \
+              "VALUES " \
+              "(?, ?)"
+        city, country = event[2].split()
+        values = [city, country]
+        cursor.execute(sql, values)
+        db.commit()
+        presenter_location_id = cursor.lastrowid
+
+        sql = "INSERT INTO locations " \
+              "(city, country) " \
+              "VALUES " \
+              "(?, ?)"
+        city, country = event[6].split()
+        values = [city, country]
+        cursor.execute(sql, values)
+        db.commit()
+        organisation_location_id = cursor.lastrowid
+
+        sql = "INSERT INTO organisations " \
+              "(name, location_id) " \
+              "VALUES " \
+              f"(?, {organisation_location_id})"
+
+        values = [event[1]]
+        cursor.execute(sql, values)
+        db.commit()
+        presenter_organisation_id = cursor.lastrowid
+
+        sql = "INSERT INTO organisations " \
+              "(name, location_id) " \
+              "VALUES " \
+              f"(?, {organisation_location_id})"
+
+        values = [event[4]]
+        cursor.execute(sql, values)
+        db.commit()
+        host_organisation_id = cursor.lastrowid
+
+        sql = "INSERT INTO events " \
+              "(name, type, host_id) " \
+              "VALUES " \
+              f"(?, ?, {host_organisation_id})"
+
+        values = [event[3], event[5]]
+        cursor.execute(sql, values)
+        db.commit()
+        event_id = cursor.lastrowid
+
+        sql = "INSERT INTO presenters " \
+              "(first_name, last_name, organisation_id) " \
+              "VALUES " \
+              f"(?, ?, {presenter_organisation_id})"
+
+        first_name, last_name = event[0].split()
+        values = [first_name, last_name]
+        cursor.execute(sql, values)
+        db.commit()
+        presenter_id = cursor.lastrowid
+
+        sql = "INSERT INTO events_presenters " \
+              "(presenter_id, event_id) " \
+              "VALUES " \
+              f"(?, ?)"
+
+        values = [presenter_id, event_id]
+        cursor.execute(sql, values)
+        db.commit()
+
+    db.close()
 
 # Display a list of all presenters with their organisations
 def display_presenters():
@@ -58,7 +141,7 @@ def display_presenters_for_event(event_id):
 
     for record in records:
         # first name, last name
-        print(f"{record[1]} {record[2]})")
+        print(f"{record[1]} {record[2]}")
 
 
 # Display a list of all events for a specific presenter
