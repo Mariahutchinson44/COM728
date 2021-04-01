@@ -25,11 +25,11 @@ def run():
         database.display_events()
     elif response == 3:
         print("Please enter event id")
-        event_id = input()
+        event_id = int(input())
         database.display_presenters_for_event(event_id)
     elif response == 4:
         print("Please enter presenter id")
-        presenter_id = input()
+        presenter_id = int(input())
         database.display_events_for_presenter(presenter_id)
     else:
         print("Invalid selection")
