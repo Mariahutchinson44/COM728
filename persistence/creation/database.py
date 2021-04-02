@@ -80,7 +80,7 @@ def load_database(events):
         db = sqlite3.connect("events3.db")
         cursor = db.cursor()
 
-        # ERROR: loads duplicate locations
+        # ERROR: inserts duplicate locations, e.g. inserts Southampton multiple times
         sql = "INSERT INTO locations " \
               "(city, country) " \
               "VALUES " \
@@ -92,7 +92,7 @@ def load_database(events):
         # this will become the FK in organisations table
         pres_org_loc_id = cursor.lastrowid
 
-        # ERROR: loads duplicate locations
+        # ERROR: inserts duplicate locations, e.g. inserts Southampton multiple times
         sql = "INSERT INTO locations " \
               "(city, country) " \
               "VALUES " \
@@ -137,7 +137,7 @@ def load_database(events):
         # this will become the FK for the events_presenters table
         event_id = cursor.lastrowid
 
-        # ERROR: is able to handle more than one presenter name, but duplicates in table
+        # is able to handle where there is more than one presenter name, but inserts duplicate names
         # convert from comma separated string to a list
         presenters_list = event[0].split(",")
         for presenter in presenters_list:
