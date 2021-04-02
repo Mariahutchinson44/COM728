@@ -1,86 +1,122 @@
 import sqlite3
+import csv
+records = []
 
-def load_database(events):
-    # Locations
-    # Organisations
-    # Events
-    # Presenters
-    # Events_Presenters
+def load_csv_data():
+    with open("events.csv") as file:
+        csv_reader = csv.reader(file)
+        # identify and ignore headings
+        next(csv_reader)
+        for value in csv_reader:
+            # append each list to the global variable
+            records.append(value)
+    return records
 
-    for event in events:
+def create_database():
+    db = sqlite3.connect("events3.db")
+    cursor = db.cursor()
 
-        db = sqlite3.connect("events.db")
-        cursor = db.cursor()
+    sql = "CREATE TABLE locations (" \
+          "id INTEGER NOT NULL UNIQUE," \
+          "city TEXT NOT NULL," \
+          "PRIMARY KEY(id AUTOINCREMENT)" \
+          ");"
+    cursor.execute(sql)
+    db.commit()
 
-        sql = "INSERT INTO locations " \
-              "(city, country) " \
-              "VALUES " \
-              "(?, ?)"
-        city, country = event[2].split()
-        values = [city, country]
-        cursor.execute(sql, values)
-        db.commit()
-        presenter_location_id = cursor.lastrowid
+    sql = "CREATE TABLE organisations (" \
+          "id INTEGER NOT NULL UNIQUE," \
+          "name TEXT NOT NULL," \
+          "location_id INTEGER NOT NULL," \
+          "PRIMARY KEY(id AUTOINCREMENT)," \
+          "FOREIGN KEY(location_id) REFERENCES locations(id)" \
+          ");"
+    cursor.execute(sql)
+    db.commit()
 
-        sql = "INSERT INTO locations " \
-              "(city, country) " \
-              "VALUES " \
-              "(?, ?)"
-        city, country = event[6].split()
-        values = [city, country]
-        cursor.execute(sql, values)
-        db.commit()
-        organisation_location_id = cursor.lastrowid
 
-        sql = "INSERT INTO organisations " \
-              "(name, location_id) " \
-              "VALUES " \
-              f"(?, {organisation_location_id})"
 
-        values = [event[1]]
-        cursor.execute(sql, values)
-        db.commit()
-        presenter_organisation_id = cursor.lastrowid
-
-        sql = "INSERT INTO organisations " \
-              "(name, location_id) " \
-              "VALUES " \
-              f"(?, {organisation_location_id})"
-
-        values = [event[4]]
-        cursor.execute(sql, values)
-        db.commit()
-        host_organisation_id = cursor.lastrowid
-
-        sql = "INSERT INTO events " \
-              "(name, type, host_id) " \
-              "VALUES " \
-              f"(?, ?, {host_organisation_id})"
-
-        values = [event[3], event[5]]
-        cursor.execute(sql, values)
-        db.commit()
-        event_id = cursor.lastrowid
-
-        sql = "INSERT INTO presenters " \
-              "(first_name, last_name, organisation_id) " \
-              "VALUES " \
-              f"(?, ?, {presenter_organisation_id})"
-
-        first_name, last_name = event[0].split()
-        values = [first_name, last_name]
-        cursor.execute(sql, values)
-        db.commit()
-        presenter_id = cursor.lastrowid
-
-        sql = "INSERT INTO events_presenters " \
-              "(presenter_id, event_id) " \
-              "VALUES " \
-              f"(?, ?)"
-
-        values = [presenter_id, event_id]
-        cursor.execute(sql, values)
-        db.commit()
+# def load_database(events):
+#     # Locations
+#     # Organisations
+#     # Events
+#     # Presenters
+#     # Events_Presenters
+#
+#     for event in events:
+#
+#         db = sqlite3.connect("events.db")
+#         cursor = db.cursor()
+#
+#         sql = "INSERT INTO locations " \
+#               "(city, country) " \
+#               "VALUES " \
+#               "(?, ?)"
+#         city, country = event[2].split()
+#         values = [city, country]
+#         cursor.execute(sql, values)
+#         db.commit()
+#         presenter_location_id = cursor.lastrowid
+#
+#         sql = "INSERT INTO locations " \
+#               "(city, country) " \
+#               "VALUES " \
+#               "(?, ?)"
+#         city, country = event[6].split()
+#         values = [city, country]
+#         cursor.execute(sql, values)
+#         db.commit()
+#         organisation_location_id = cursor.lastrowid
+#
+#         sql = "INSERT INTO organisations " \
+#               "(name, location_id) " \
+#               "VALUES " \
+#               f"(?, {organisation_location_id})"
+#
+#         values = [event[1]]
+#         cursor.execute(sql, values)
+#         db.commit()
+#         presenter_organisation_id = cursor.lastrowid
+#
+#         sql = "INSERT INTO organisations " \
+#               "(name, location_id) " \
+#               "VALUES " \
+#               f"(?, {organisation_location_id})"
+#
+#         values = [event[4]]
+#         cursor.execute(sql, values)
+#         db.commit()
+#         host_organisation_id = cursor.lastrowid
+#
+#         sql = "INSERT INTO events " \
+#               "(name, type, host_id) " \
+#               "VALUES " \
+#               f"(?, ?, {host_organisation_id})"
+#
+#         values = [event[3], event[5]]
+#         cursor.execute(sql, values)
+#         db.commit()
+#         event_id = cursor.lastrowid
+#
+#         sql = "INSERT INTO presenters " \
+#               "(first_name, last_name, organisation_id) " \
+#               "VALUES " \
+#               f"(?, ?, {presenter_organisation_id})"
+#
+#         first_name, last_name = event[0].split()
+#         values = [first_name, last_name]
+#         cursor.execute(sql, values)
+#         db.commit()
+#         presenter_id = cursor.lastrowid
+#
+#         sql = "INSERT INTO events_presenters " \
+#               "(presenter_id, event_id) " \
+#               "VALUES " \
+#               f"(?, ?)"
+#
+#         values = [presenter_id, event_id]
+#         cursor.execute(sql, values)
+#         db.commit()
 
     db.close()
 

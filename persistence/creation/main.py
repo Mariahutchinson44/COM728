@@ -1,22 +1,12 @@
 import database as database
-import csv
 
-
-
-def load_csv_data():
-    events = []
-    with open("events.csv") as file:
-        csv_reader = csv.reader(file)
-        next(csv_reader)
-        for value in csv_reader:
-            events.append(value)
-    return events
 
 def menu():
     # display menu options and return integer
     print("""
       Please select one of the following options:
       
+      [0] Load database
       [1] Display presenters
       [2] Display events
       [3] Display presenters for event
@@ -29,11 +19,12 @@ def menu():
 
 
 def run():
-    events = load_csv_data()
-    database.load_database(events)
-
     response = menu()
-    if response == 1:
+    if response == 0:
+        events = database.load_csv_data()
+        database.create_database()
+        # database.load_database(events)
+    elif response == 1:
         database.display_presenters()
     elif response == 2:
         database.display_events()
