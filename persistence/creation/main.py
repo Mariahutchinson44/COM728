@@ -23,7 +23,7 @@ def run():
     if response == 0:
         events = database.load_csv_data()
         database.create_database()
-        # database.load_database(events)
+        database.load_database(events)
     elif response == 1:
         database.display_presenters()
     elif response == 2:

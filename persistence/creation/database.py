@@ -19,6 +19,7 @@ def create_database():
     sql = "CREATE TABLE locations (" \
           "id INTEGER NOT NULL UNIQUE," \
           "city TEXT NOT NULL," \
+          "country TEXT NOT NULL," \
           "PRIMARY KEY(id AUTOINCREMENT)" \
           ");"
     cursor.execute(sql)
@@ -67,89 +68,97 @@ def create_database():
 
     db.close()
 
-# def load_database(events):
-#     # Locations
-#     # Organisations
-#     # Events
-#     # Presenters
-#     # Events_Presenters
-#
-#     for event in events:
-#
-#         db = sqlite3.connect("events.db")
-#         cursor = db.cursor()
-#
-#         sql = "INSERT INTO locations " \
-#               "(city, country) " \
-#               "VALUES " \
-#               "(?, ?)"
-#         city, country = event[2].split()
-#         values = [city, country]
-#         cursor.execute(sql, values)
-#         db.commit()
-#         presenter_location_id = cursor.lastrowid
-#
-#         sql = "INSERT INTO locations " \
-#               "(city, country) " \
-#               "VALUES " \
-#               "(?, ?)"
-#         city, country = event[6].split()
-#         values = [city, country]
-#         cursor.execute(sql, values)
-#         db.commit()
-#         organisation_location_id = cursor.lastrowid
-#
-#         sql = "INSERT INTO organisations " \
-#               "(name, location_id) " \
-#               "VALUES " \
-#               f"(?, {organisation_location_id})"
-#
-#         values = [event[1]]
-#         cursor.execute(sql, values)
-#         db.commit()
-#         presenter_organisation_id = cursor.lastrowid
-#
-#         sql = "INSERT INTO organisations " \
-#               "(name, location_id) " \
-#               "VALUES " \
-#               f"(?, {organisation_location_id})"
-#
-#         values = [event[4]]
-#         cursor.execute(sql, values)
-#         db.commit()
-#         host_organisation_id = cursor.lastrowid
-#
-#         sql = "INSERT INTO events " \
-#               "(name, type, host_id) " \
-#               "VALUES " \
-#               f"(?, ?, {host_organisation_id})"
-#
-#         values = [event[3], event[5]]
-#         cursor.execute(sql, values)
-#         db.commit()
-#         event_id = cursor.lastrowid
-#
-#         sql = "INSERT INTO presenters " \
-#               "(first_name, last_name, organisation_id) " \
-#               "VALUES " \
-#               f"(?, ?, {presenter_organisation_id})"
-#
-#         first_name, last_name = event[0].split()
-#         values = [first_name, last_name]
-#         cursor.execute(sql, values)
-#         db.commit()
-#         presenter_id = cursor.lastrowid
-#
-#         sql = "INSERT INTO events_presenters " \
-#               "(presenter_id, event_id) " \
-#               "VALUES " \
-#               f"(?, ?)"
-#
-#         values = [presenter_id, event_id]
-#         cursor.execute(sql, values)
-#         db.commit()
+def load_database(events):
+    # Locations
+    # Organisations
+    # Events
+    # Presenters
+    # Events_Presenters
 
-    # db.close()
+    for event in events:
+
+        db = sqlite3.connect("events3.db")
+        cursor = db.cursor()
+
+        # ERROR: loads duplicate locations
+        sql = "INSERT INTO locations " \
+              "(city, country) " \
+              "VALUES " \
+              "(?, ?)"
+        city, country = event[2].split(",")
+        values = [city, country]
+        cursor.execute(sql, values)
+        db.commit()
+        # this will become the FK in organisations table
+        pres_org_loc_id = cursor.lastrowid
+
+        # ERROR: loads duplicate locations
+        sql = "INSERT INTO locations " \
+              "(city, country) " \
+              "VALUES " \
+              "(?, ?)"
+        city, country = event[6].split(",")
+        values = [city, country]
+        cursor.execute(sql, values)
+        db.commit()
+        # this will become the FK in organisations table
+        event_org_loc_id = cursor.lastrowid
+
+        sql = "INSERT INTO organisations " \
+              "(name, location_id) " \
+              "VALUES " \
+              f"(?, {pres_org_loc_id})"
+
+        values = [event[1]]
+        cursor.execute(sql, values)
+        db.commit()
+        # This will become the FK in the presenters table
+        pres_org_id = cursor.lastrowid
+
+        sql = "INSERT INTO organisations " \
+              "(name, location_id) " \
+              "VALUES " \
+              f"(?, {event_org_loc_id})"
+
+        values = [event[4]]
+        cursor.execute(sql, values)
+        db.commit()
+        # This will become the FK in the events table
+        host_org_id = cursor.lastrowid
+
+        sql = "INSERT INTO events " \
+              "(name, type, host_id) " \
+              "VALUES " \
+              f"(?, ?, {host_org_id})"
+
+        values = [event[3], event[5]]
+        cursor.execute(sql, values)
+        db.commit()
+        # this will become the FK for the events_presenters table
+        event_id = cursor.lastrowid
+        # ERROR: is not able to handle more than one presenter name
+        sql = "INSERT INTO presenters " \
+              "(first_name, last_name, organisation_id) " \
+              "VALUES " \
+              f"(?, ?, {pres_org_id})"
+
+        first_name, last_name = event[0].split()
+        values = [first_name, last_name]
+        cursor.execute(sql, values)
+        db.commit()
+        # this will become the FK for the events_presenters table
+        presenter_id = cursor.lastrowid
+
+        sql = "INSERT INTO events_presenters " \
+              "(presenter_id, event_id) " \
+              "VALUES " \
+              f"(?, ?)"
+
+        values = [presenter_id, event_id]
+        cursor.execute(sql, values)
+        db.commit()
+
+    db.close()
 
 # Display a list of all presenters with their organisations
 def display_presenters():
