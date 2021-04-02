@@ -34,7 +34,38 @@ def create_database():
     cursor.execute(sql)
     db.commit()
 
+    sql = "CREATE TABLE events (" \
+          "id INTEGER NOT NULL UNIQUE," \
+          "name TEXT NOT NULL," \
+          "type TEXT NOT NULL CHECK(type == 'presentation' OR type == 'workshop' OR type == 'seminar')," \
+          "host_id INTEGER," \
+          "PRIMARY KEY(id AUTOINCREMENT)," \
+          "FOREIGN KEY(host_id) REFERENCES organisations(id)" \
+          ");"
+    cursor.execute(sql)
+    db.commit()
 
+    sql = "CREATE TABLE presenters (" \
+          "id INTEGER NOT NULL UNIQUE," \
+          "first_name TEXT NOT NULL," \
+          "last_name TEXT NOT NULL," \
+          "organisation_id INTEGER," \
+          "PRIMARY KEY(id AUTOINCREMENT)," \
+          "FOREIGN KEY(organisation_id) REFERENCES organisations(id)" \
+          ");"
+    cursor.execute(sql)
+    db.commit()
+
+    sql = "CREATE TABLE events_presenters (" \
+          "presenter_id INTEGER NOT NULL," \
+          "event_id INTEGER NOT NULL," \
+          "FOREIGN KEY(presenter_id) REFERENCES presenters(id)," \
+          "FOREIGN KEY(event_id) REFERENCES events(id)" \
+          ");"
+    cursor.execute(sql)
+    db.commit()
+
+    db.close()
 
 # def load_database(events):
 #     # Locations
@@ -118,7 +149,7 @@ def create_database():
 #         cursor.execute(sql, values)
 #         db.commit()
 
-    db.close()
+    # db.close()
 
 # Display a list of all presenters with their organisations
 def display_presenters():
