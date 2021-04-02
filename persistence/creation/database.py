@@ -136,33 +136,38 @@ def load_database(events):
         db.commit()
         # this will become the FK for the events_presenters table
         event_id = cursor.lastrowid
-        # ERROR: is not able to handle more than one presenter name
-        sql = "INSERT INTO presenters " \
-              "(first_name, last_name, organisation_id) " \
-              "VALUES " \
-              f"(?, ?, {pres_org_id})"
 
-        first_name, last_name = event[0].split()
-        values = [first_name, last_name]
-        cursor.execute(sql, values)
-        db.commit()
-        # this will become the FK for the events_presenters table
-        presenter_id = cursor.lastrowid
+        # ERROR: is able to handle more than one presenter name, but duplicates in table
+        # convert from comma separated string to a list
+        presenters_list = event[0].split(",")
+        for presenter in presenters_list:
+            first_name, last_name = presenter.split()
+            values = [first_name, last_name]
 
-        sql = "INSERT INTO events_presenters " \
-              "(presenter_id, event_id) " \
-              "VALUES " \
-              f"(?, ?)"
+            sql = "INSERT INTO presenters " \
+                  "(first_name, last_name, organisation_id) " \
+                  "VALUES " \
+                  f"(?, ?, {pres_org_id})"
 
-        values = [presenter_id, event_id]
-        cursor.execute(sql, values)
-        db.commit()
+            cursor.execute(sql, values)
+            db.commit()
+            # this will become the FK for the events_presenters table
+            presenter_id = cursor.lastrowid
+
+            sql = "INSERT INTO events_presenters " \
+                  "(presenter_id, event_id) " \
+                  "VALUES " \
+                  "(?, ?)"
+
+            values = [presenter_id, event_id]
+            cursor.execute(sql, values)
+            db.commit()
 
     db.close()
 
 # Display a list of all presenters with their organisations
 def display_presenters():
-    db = sqlite3.connect("events.db")
+    db = sqlite3.connect("events3.db")
     cursor = db.cursor()
     sql = "SELECT first_name, last_name, organisations.name " \
           "FROM presenters " \
@@ -178,7 +183,7 @@ def display_presenters():
 
 # Display a list of all events with their locations
 def display_events():
-    db = sqlite3.connect("events.db")
+    db = sqlite3.connect("events3.db")
     cursor = db.cursor()
     sql = "SELECT events.name, locations.city, locations.country " \
           "FROM events " \
@@ -195,7 +200,7 @@ def display_events():
 
 # Display a list of all presenters for a specified event
 def display_presenters_for_event(event_id):
-    db = sqlite3.connect("events.db")
+    db = sqlite3.connect("events3.db")
     cursor = db.cursor()
     sql = "SELECT events.name, first_name, last_name " \
           "FROM events " \
@@ -222,7 +227,7 @@ def display_presenters_for_event(event_id):
 
 # Display a list of all events for a specific presenter
 def display_events_for_presenter(presenter_id):
-    db = sqlite3.connect("events.db")
+    db = sqlite3.connect("events3.db")
     cursor = db.cursor()
     sql = "SELECT first_name, last_name, events.name " \
           "FROM presenters " \
