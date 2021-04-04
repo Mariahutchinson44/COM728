@@ -1,0 +1,67 @@
+<mxfile host="app.diagrams.net" modified="2021-04-03T10:58:28.276Z" agent="5.0 (Macintosh)" etag="5aTUso4YMAmnOdAvqxRw" version="14.5.6" type="github">
+  <diagram id="7nECYnvUzKPOILx6_Tkv" name="Page-1">
+    <mxGraphModel dx="913" dy="1039" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#B0E3E6" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="HnSEGVBt5WXFBmfd8ti2-1" value="User input" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;fillColor=#F08E81;strokeColor=#FFFFFF;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="170" y="170" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HnSEGVBt5WXFBmfd8ti2-3" value="Classify which category user&#39;s message belongs to" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fillColor=#F08E81;strokeColor=#FFFFFF;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="170" y="320" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="HnSEGVBt5WXFBmfd8ti2-5" value="Display response" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.display;whiteSpace=wrap;fillColor=#F08E81;strokeColor=#FFFFFF;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="175" y="730" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HnSEGVBt5WXFBmfd8ti2-6" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#182E3E;fontColor=#1A1A1A;labelBackgroundColor=#B0E3E6;" edge="1" parent="1" source="HnSEGVBt5WXFBmfd8ti2-1" target="HnSEGVBt5WXFBmfd8ti2-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="560" as="sourcePoint" />
+            <mxPoint x="440" y="510" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HnSEGVBt5WXFBmfd8ti2-8" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;strokeColor=#182E3E;fontColor=#1A1A1A;labelBackgroundColor=#B0E3E6;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="219.5" y="420" as="sourcePoint" />
+            <mxPoint x="220" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HnSEGVBt5WXFBmfd8ti2-9" value="" style="endArrow=classic;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#182E3E;fontColor=#1A1A1A;labelBackgroundColor=#B0E3E6;" edge="1" parent="1" target="HnSEGVBt5WXFBmfd8ti2-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="225" y="600" as="sourcePoint" />
+            <mxPoint x="225" y="705" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HnSEGVBt5WXFBmfd8ti2-10" value="Dataset: &#39;intents.json&#39;" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;sketch=0;fillColor=#F08E81;fontColor=#1A1A1A;strokeColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="400" y="520" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HnSEGVBt5WXFBmfd8ti2-11" value="Select random response from list of responses in dataset" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;sketch=0;fillColor=#F08E81;fontColor=#1A1A1A;strokeColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="170" y="500" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="HnSEGVBt5WXFBmfd8ti2-12" value="" style="endArrow=classic;html=1;strokeColor=#182E3E;fontColor=#1A1A1A;entryX=0;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=#B0E3E6;" edge="1" parent="1" target="HnSEGVBt5WXFBmfd8ti2-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="270" y="531" as="sourcePoint" />
+            <mxPoint x="440" y="510" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HnSEGVBt5WXFBmfd8ti2-13" value="" style="endArrow=classic;html=1;strokeColor=#182E3E;fontColor=#1A1A1A;exitX=0;exitY=0.75;exitDx=0;exitDy=0;labelBackgroundColor=#B0E3E6;" edge="1" parent="1" source="HnSEGVBt5WXFBmfd8ti2-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="560" as="sourcePoint" />
+            <mxPoint x="271" y="563" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HnSEGVBt5WXFBmfd8ti2-14" value="This is a JSON file that contains the patterns we need to find and the responses we want to return to the user" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;sketch=0;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="520" y="530" width="250" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HnSEGVBt5WXFBmfd8ti2-15" value="&lt;div&gt;Python&lt;/div&gt;&lt;div&gt;Keras&lt;/div&gt;&lt;div&gt;NLTK&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;sketch=0;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="680" y="30" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HnSEGVBt5WXFBmfd8ti2-16" value="pip install tensorflow, keras, pickle, nltk" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="590" y="80" width="220" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HnSEGVBt5WXFBmfd8ti2-17" value="could not install pickle?" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;sketch=0;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="600" y="100" width="160" height="20" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
