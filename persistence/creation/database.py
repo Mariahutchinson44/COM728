@@ -137,6 +137,11 @@ def load_database(events):
         # this will become the FK for the events_presenters table
         event_id = cursor.lastrowid
 
+        #If the name already exists then you retrieve the existing id otherwise you insert the record and get the new
+        # id that has been generated.
+        # to avoid duplicates in the database you should ensure that a suitable constraint has been added to the
+        # relevant table(i.e.should have unique records).
+
         # is able to handle where there is more than one presenter name, but inserts duplicate names
         # convert from comma separated string to a list
         presenters_list = event[0].split(",")
