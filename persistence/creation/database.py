@@ -97,7 +97,8 @@ def load_database(events):
             # this will become the FK in organisations table
             pres_org_loc_id = cursor.lastrowid
         else:
-            pres_org_loc_id = cursor.lastrowid
+            # ERROR - does not return correct id
+            pres_org_loc_id = data[0]
 
         # ***SORTED***ERROR: inserts duplicate locations, e.g. inserts Southampton multiple times
         city, country = event[6].split(",")
@@ -117,18 +118,18 @@ def load_database(events):
             # this will become the FK in organisations table
             event_org_loc_id = cursor.lastrowid
         else:
-            event_org_loc_id = cursor.lastrowid
-        #
-        # sql = "INSERT INTO organisations " \
-        #       "(name, location_id) " \
-        #       "VALUES " \
-        #       f"(?, {pres_org_loc_id})"
-        #
-        # values = [event[1]]
-        # cursor.execute(sql, values)
-        # db.commit()
-        # # This will become the FK in the presenters table
-        # pres_org_id = cursor.lastrowid
+            event_org_loc_id = data[0]
+
+        sql = "INSERT INTO organisations " \
+              "(name, location_id) " \
+              "VALUES " \
+              "(?, ?)"
+
+        values = [event[1], f"{pres_org_loc_id}"]
+        cursor.execute(sql, values)
+        db.commit()
+        # This will become the FK in the presenters table
+        pres_org_id = cursor.lastrowid
         #
         # sql = "INSERT INTO organisations " \
         #       "(name, location_id) " \
