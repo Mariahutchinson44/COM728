@@ -15,10 +15,9 @@ def load_csv_data():
 def create_database():
     db = sqlite3.connect("events3.db")
     cursor = db.cursor()
-
     sql = "CREATE TABLE locations (" \
           "id INTEGER NOT NULL UNIQUE," \
-          "city TEXT NOT NULL," \
+          "city TEXT NOT NULL UNIQUE," \
           "country TEXT NOT NULL," \
           "PRIMARY KEY(id AUTOINCREMENT)" \
           ");"
@@ -80,93 +79,109 @@ def load_database(events):
         db = sqlite3.connect("events3.db")
         cursor = db.cursor()
 
-        # ERROR: inserts duplicate locations, e.g. inserts Southampton multiple times
-        sql = "INSERT INTO locations " \
-              "(city, country) " \
-              "VALUES " \
-              "(?, ?)"
+        # ****SORTED*****ERROR: inserts duplicate locations, e.g. inserts Southampton multiple times
         city, country = event[2].split(",")
+        value = [city]
         values = [city, country]
-        cursor.execute(sql, values)
-        db.commit()
-        # this will become the FK in organisations table
-        pres_org_loc_id = cursor.lastrowid
 
-        # ERROR: inserts duplicate locations, e.g. inserts Southampton multiple times
-        sql = "INSERT INTO locations " \
-              "(city, country) " \
-              "VALUES " \
-              "(?, ?)"
-        city, country = event[6].split(",")
-        values = [city, country]
-        cursor.execute(sql, values)
-        db.commit()
-        # this will become the FK in organisations table
-        event_org_loc_id = cursor.lastrowid
-
-        sql = "INSERT INTO organisations " \
-              "(name, location_id) " \
-              "VALUES " \
-              f"(?, {pres_org_loc_id})"
-
-        values = [event[1]]
-        cursor.execute(sql, values)
-        db.commit()
-        # This will become the FK in the presenters table
-        pres_org_id = cursor.lastrowid
-
-        sql = "INSERT INTO organisations " \
-              "(name, location_id) " \
-              "VALUES " \
-              f"(?, {event_org_loc_id})"
-
-        values = [event[4]]
-        cursor.execute(sql, values)
-        db.commit()
-        # This will become the FK in the events table
-        host_org_id = cursor.lastrowid
-
-        sql = "INSERT INTO events " \
-              "(name, type, host_id) " \
-              "VALUES " \
-              f"(?, ?, {host_org_id})"
-
-        values = [event[3], event[5]]
-        cursor.execute(sql, values)
-        db.commit()
-        # this will become the FK for the events_presenters table
-        event_id = cursor.lastrowid
-
-        #If the name already exists then you retrieve the existing id otherwise you insert the record and get the new
-        # id that has been generated.
-        # to avoid duplicates in the database you should ensure that a suitable constraint has been added to the
-        # relevant table(i.e.should have unique records).
-
-        # is able to handle where there is more than one presenter name, but inserts duplicate names
-        # convert from comma separated string to a list
-        presenters_list = event[0].split(",")
-        for presenter in presenters_list:
-            first_name, last_name = presenter.split()
-            values = [first_name, last_name]
-
-            sql = "INSERT INTO presenters " \
-                  "(first_name, last_name, organisation_id) " \
-                  "VALUES " \
-                  f"(?, ?, {pres_org_id})"
-
-            cursor.execute(sql, values)
-            db.commit()
-            # this will become the FK for the events_presenters table
-            presenter_id = cursor.lastrowid
-
-            sql = "INSERT INTO events_presenters " \
-                  "(presenter_id, event_id) " \
+        sql = "SELECT id FROM locations WHERE city = ?"
+        cursor.execute(sql, value)
+        data = cursor.fetchall()
+        if len(data)==0:
+            sql = "INSERT INTO locations " \
+                  "(city, country) " \
                   "VALUES " \
                   "(?, ?)"
-
-            values = [presenter_id, event_id]
             cursor.execute(sql, values)
             db.commit()
+            # this will become the FK in organisations table
+            pres_org_loc_id = cursor.lastrowid
+        else:
+            pres_org_loc_id = cursor.lastrowid
+
+        # ***SORTED***ERROR: inserts duplicate locations, e.g. inserts Southampton multiple times
+        city, country = event[6].split(",")
+        value = [city]
+        values = [city, country]
+
+        sql = "SELECT id FROM locations WHERE city = ?"
+        cursor.execute(sql, value)
+        data = cursor.fetchall()
+        if len(data) == 0:
+            sql = "INSERT INTO locations " \
+                  "(city, country) " \
+                  "VALUES " \
+                  "(?, ?)"
+            cursor.execute(sql, values)
+            db.commit()
+            # this will become the FK in organisations table
+            event_org_loc_id = cursor.lastrowid
+        else:
+            event_org_loc_id = cursor.lastrowid
+        #
+        # sql = "INSERT INTO organisations " \
+        #       "(name, location_id) " \
+        #       "VALUES " \
+        #       f"(?, {pres_org_loc_id})"
+        #
+        # values = [event[1]]
+        # cursor.execute(sql, values)
+        # db.commit()
+        # # This will become the FK in the presenters table
+        # pres_org_id = cursor.lastrowid
+        #
+        # sql = "INSERT INTO organisations " \
+        #       "(name, location_id) " \
+        #       "VALUES " \
+        #       f"(?, {event_org_loc_id})"
+        #
+        # values = [event[4]]
+        # cursor.execute(sql, values)
+        # db.commit()
+        # # This will become the FK in the events table
+        # host_org_id = cursor.lastrowid
+        #
+        # sql = "INSERT INTO events " \
+        #       "(name, type, host_id) " \
+        #       "VALUES " \
+        #       f"(?, ?, {host_org_id})"
+        #
+        # values = [event[3], event[5]]
+        # cursor.execute(sql, values)
+        # db.commit()
+        # # this will become the FK for the events_presenters table
+        # event_id = cursor.lastrowid
+        #
+        # #If the name already exists then you retrieve the existing id otherwise you insert the record and get the new
+        # # id that has been generated.
+        # # to avoid duplicates in the database you should ensure that a suitable constraint has been added to the
+        # # relevant table(i.e.should have unique records).
+        #
+        # # is able to handle where there is more than one presenter name, but inserts duplicate names
+        # # convert from comma separated string to a list
+        # presenters_list = event[0].split(",")
+        # for presenter in presenters_list:
+        #     first_name, last_name = presenter.split()
+        #     values = [first_name, last_name]
+        #
+        #     sql = "INSERT INTO presenters " \
+        #           "(first_name, last_name, organisation_id) " \
+        #           "VALUES " \
+        #           f"(?, ?, {pres_org_id})"
+        #
+        #     cursor.execute(sql, values)
+        #     db.commit()
+        #     # this will become the FK for the events_presenters table
+        #     presenter_id = cursor.lastrowid
+        #
+        #     sql = "INSERT INTO events_presenters " \
+        #           "(presenter_id, event_id) " \
+        #           "VALUES " \
+        #           "(?, ?)"
+        #
+        #     values = [presenter_id, event_id]
+        #     cursor.execute(sql, values)
+        #     db.commit()
 
     db.close()
 
