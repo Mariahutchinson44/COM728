@@ -79,15 +79,18 @@ def load_database(events):
         db = sqlite3.connect("events3.db")
         cursor = db.cursor()
 
-        # ****SORTED*****ERROR: inserts duplicate locations, e.g. inserts Southampton multiple times
+        # ****SORTED*****
         city, country = event[2].split(",")
         value = [city]
         values = [city, country]
 
+        # checks if city exists before inserting in table
         sql = "SELECT id FROM locations WHERE city = ?"
         cursor.execute(sql, value)
+        # this data is returned as an empty list is it does not exist [],
+        # or as a list containing a single-item tuple in the form [(n,)]
         data = cursor.fetchall()
-        if len(data)==0:
+        if len(data) == 0:
             sql = "INSERT INTO locations " \
                   "(city, country) " \
                   "VALUES " \
@@ -97,16 +100,21 @@ def load_database(events):
             # this will become the FK in organisations table
             pres_org_loc_id = cursor.lastrowid
         else:
-            # ERROR - does not return correct id
-            pres_org_loc_id = data[0]
+            # unpacks single item tuple to get id
+            (pres_org_loc_id,) = data[0]
+            print(pres_org_loc_id)
 
-        # ***SORTED***ERROR: inserts duplicate locations, e.g. inserts Southampton multiple times
+
+        # ***SORTED***
         city, country = event[6].split(",")
         value = [city]
         values = [city, country]
 
+        # checks if city exists before inserting in table
         sql = "SELECT id FROM locations WHERE city = ?"
         cursor.execute(sql, value)
+        # this data is returned as an empty list is it does not exist [],
+        # or as a list containing a single-item tuple in the form [(n,)]
         data = cursor.fetchall()
         if len(data) == 0:
             sql = "INSERT INTO locations " \
@@ -118,7 +126,8 @@ def load_database(events):
             # this will become the FK in organisations table
             event_org_loc_id = cursor.lastrowid
         else:
-            event_org_loc_id = data[0]
+            # unpacks single item tuple to get id
+            (event_org_loc_id,) = data[0]
 
         sql = "INSERT INTO organisations " \
               "(name, location_id) " \
