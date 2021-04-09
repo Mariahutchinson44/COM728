@@ -83,7 +83,6 @@ def load_database(events):
         city, country = event[2].split(",")
         value = [city]
         values = [city, country]
-
         # checks if city exists before inserting in table
         sql = "SELECT id FROM locations WHERE city = ?"
         cursor.execute(sql, value)
@@ -102,14 +101,12 @@ def load_database(events):
         else:
             # unpacks single item tuple to get id
             (pres_org_loc_id,) = data[0]
-            print(pres_org_loc_id)
 
 
         # ***SORTED***
         city, country = event[6].split(",")
         value = [city]
         values = [city, country]
-
         # checks if city exists before inserting in table
         sql = "SELECT id FROM locations WHERE city = ?"
         cursor.execute(sql, value)
@@ -129,16 +126,28 @@ def load_database(events):
             # unpacks single item tuple to get id
             (event_org_loc_id,) = data[0]
 
-        sql = "INSERT INTO organisations " \
+        values = [event[1], f"{pres_org_loc_id}"]
+        value = [event[1]]
+        # Check if organisation exists before inserting into table
+        sql = "SELECT id FROM organisations WHERE name = ?"
+        cursor.execute(sql, value)
+        # this data is returned as an empty list is it does not exist [],
+        # or as a list containing a single-item tuple in the form [(n,)]
+        data = cursor.fetchall()
+        if len(data) == 0:
+            sql = "INSERT INTO organisations " \
               "(name, location_id) " \
               "VALUES " \
               "(?, ?)"
+            cursor.execute(sql, values)
+            db.commit()
+            # This will become the FK in the presenters table
+            pres_org_id = cursor.lastrowid
+        else:
+            # unpacks single item tuple to get id
+            (pres_org_id,) = data[0]
 
-        values = [event[1], f"{pres_org_loc_id}"]
-        cursor.execute(sql, values)
-        db.commit()
-        # This will become the FK in the presenters table
-        pres_org_id = cursor.lastrowid
+
         #
         # sql = "INSERT INTO organisations " \
         #       "(name, location_id) " \
