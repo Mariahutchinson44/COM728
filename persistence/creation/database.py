@@ -68,11 +68,11 @@ def create_database():
     db.close()
 
 def load_database(events):
-    # Locations
-    # Organisations
-    # Events
-    # Presenters
-    # Events_Presenters
+    # Locations, Organisations, Events, Presenters, Events_Presenters
+    # If the name already exists then you retrieve the existing id otherwise you insert the record and get the new
+    # id that has been generated.
+    # to avoid duplicates in the database you should ensure that a suitable constraint has been added to the
+    # relevant table(i.e.should have unique records).
 
     for event in events:
 
@@ -126,7 +126,7 @@ def load_database(events):
             # unpacks single item tuple to get id
             (event_org_loc_id,) = data[0]
 
-        values = [event[1], f"{pres_org_loc_id}"]
+        values = [event[1], pres_org_loc_id]
         value = [event[1]]
         # Check if organisation exists before inserting into table
         sql = "SELECT id FROM organisations WHERE name = ?"
@@ -147,7 +147,7 @@ def load_database(events):
             # unpacks single item tuple to get id
             (pres_org_id,) = data[0]
 
-        values = [event[4], f"{event_org_loc_id}"]
+        values = [event[4], event_org_loc_id]
         value = [event[4]]
         # Check if organisation exists before inserting into table
         sql = "SELECT id FROM organisations WHERE name = ?"
@@ -168,10 +168,10 @@ def load_database(events):
             # unpacks single item tuple to get id
             (host_org_id,) = data[0]
 
-        values = [event[3], event[5], f"{host_org_id}"]
+        values = [event[3], event[5], host_org_id]
         value = [event[3], event[5]]
         # Check if event name AND type exists before inserting into table
-        sql = "SELECT id FROM events WHERE name AND type = ? AND ?"
+        sql = "SELECT id FROM events WHERE name = ? AND type = ?"
         cursor.execute(sql, value)
         # this data is returned as an empty list is it does not exist [],
         # or as a list containing a single-item tuple in the form [(n,)]
@@ -188,37 +188,46 @@ def load_database(events):
         else:
             # unpacks single item tuple to get id
             (event_id,) = data[0]
-        #
-        # #If the name already exists then you retrieve the existing id otherwise you insert the record and get the new
-        # # id that has been generated.
-        # # to avoid duplicates in the database you should ensure that a suitable constraint has been added to the
-        # # relevant table(i.e.should have unique records).
-        #
-        # # is able to handle where there is more than one presenter name, but inserts duplicate names
-        # # convert from comma separated string to a list
-        # presenters_list = event[0].split(",")
-        # for presenter in presenters_list:
-        #     first_name, last_name = presenter.split()
-        #     values = [first_name, last_name]
-        #
-        #     sql = "INSERT INTO presenters " \
-        #           "(first_name, last_name, organisation_id) " \
-        #           "VALUES " \
-        #           f"(?, ?, {pres_org_id})"
-        #
-        #     cursor.execute(sql, values)
-        #     db.commit()
-        #     # this will become the FK for the events_presenters table
-        #     presenter_id = cursor.lastrowid
-        #
-        #     sql = "INSERT INTO events_presenters " \
-        #           "(presenter_id, event_id) " \
-        #           "VALUES " \
-        #           "(?, ?)"
-        #
-        #     values = [presenter_id, event_id]
-        #     cursor.execute(sql, values)
-        #     db.commit()
+
+        # convert from comma separated string to a list
+        presenters_list = event[0].split(",")
+        for presenter in presenters_list:
+            first_name, last_name = presenter.split()
+            values = [first_name, last_name, pres_org_id]
+            value = [first_name, last_name]
+            # Check if presenter first_name AND last_name exists before inserting into table
+            sql = "SELECT id FROM presenters WHERE first_name = ? AND last_name = ?"
+            cursor.execute(sql, value)
+            # this data is returned as an empty list is it does not exist [],
+            # or as a list containing a single-item tuple in the form [(n,)]
+            data = cursor.fetchall()
+            if len(data) == 0:
+                sql = "INSERT INTO presenters " \
+                      "(first_name, last_name, organisation_id) " \
+                      "VALUES " \
+                      "(?, ?, ?)"
+                cursor.execute(sql, values)
+                db.commit()
+                # this will become the FK for the events_presenters table
+                presenter_id = cursor.lastrowid
+            else:
+                # unpacks single item tuple to get id
+                (presenter_id,) = data[0]
+
+            values = [presenter_id, event_id]
+            # check if presenter_id AND event_id exists before inserting
+            sql = "SELECT rowid FROM events_presenters WHERE presenter_id = ? AND event_id = ?"
+            cursor.execute(sql, values)
+            # this data is returned as an empty list is it does not exist [],
+            # or as a list containing a single-item tuple in the form [(n,)]
+            data = cursor.fetchall()
+            if len(data) == 0:
+                sql = "INSERT INTO events_presenters " \
+                      "(presenter_id, event_id) " \
+                      "VALUES " \
+                      "(?, ?)"
+            cursor.execute(sql, values)
+            db.commit()
 
     db.close()
 
