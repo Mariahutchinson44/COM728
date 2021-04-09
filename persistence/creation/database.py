@@ -147,29 +147,47 @@ def load_database(events):
             # unpacks single item tuple to get id
             (pres_org_id,) = data[0]
 
+        values = [event[4], f"{event_org_loc_id}"]
+        value = [event[4]]
+        # Check if organisation exists before inserting into table
+        sql = "SELECT id FROM organisations WHERE name = ?"
+        cursor.execute(sql, value)
+        # this data is returned as an empty list is it does not exist [],
+        # or as a list containing a single-item tuple in the form [(n,)]
+        data = cursor.fetchall()
+        if len(data) == 0:
+            sql = "INSERT INTO organisations " \
+              "(name, location_id) " \
+              "VALUES " \
+              "(?, ?)"
+            cursor.execute(sql, values)
+            db.commit()
+            # This will become the FK in the events table
+            host_org_id = cursor.lastrowid
+        else:
+            # unpacks single item tuple to get id
+            (host_org_id,) = data[0]
 
-        #
-        # sql = "INSERT INTO organisations " \
-        #       "(name, location_id) " \
-        #       "VALUES " \
-        #       f"(?, {event_org_loc_id})"
-        #
-        # values = [event[4]]
-        # cursor.execute(sql, values)
-        # db.commit()
-        # # This will become the FK in the events table
-        # host_org_id = cursor.lastrowid
-        #
-        # sql = "INSERT INTO events " \
-        #       "(name, type, host_id) " \
-        #       "VALUES " \
-        #       f"(?, ?, {host_org_id})"
-        #
-        # values = [event[3], event[5]]
-        # cursor.execute(sql, values)
-        # db.commit()
-        # # this will become the FK for the events_presenters table
-        # event_id = cursor.lastrowid
+        values = [event[3], event[5], f"{host_org_id}"]
+        value = [event[3], event[5]]
+        # Check if event name AND type exists before inserting into table
+        sql = "SELECT id FROM events WHERE name AND type = ? AND ?"
+        cursor.execute(sql, value)
+        # this data is returned as an empty list is it does not exist [],
+        # or as a list containing a single-item tuple in the form [(n,)]
+        data = cursor.fetchall()
+        if len(data) == 0:
+            sql = "INSERT INTO events " \
+                  "(name, type, host_id) " \
+                  "VALUES " \
+                  "(?, ?, ?)"
+            cursor.execute(sql, values)
+            db.commit()
+            # this will become the FK for the events_presenters table
+            event_id = cursor.lastrowid
+        else:
+            # unpacks single item tuple to get id
+            (event_id,) = data[0]
         #
         # #If the name already exists then you retrieve the existing id otherwise you insert the record and get the new
         # # id that has been generated.
