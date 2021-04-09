@@ -26,7 +26,7 @@ def create_database():
 
     sql = "CREATE TABLE organisations (" \
           "id INTEGER NOT NULL UNIQUE," \
-          "name TEXT NOT NULL," \
+          "name TEXT NOT NULL UNIQUE," \
           "location_id INTEGER NOT NULL," \
           "PRIMARY KEY(id AUTOINCREMENT)," \
           "FOREIGN KEY(location_id) REFERENCES locations(id)" \
