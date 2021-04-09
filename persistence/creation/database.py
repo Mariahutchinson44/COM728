@@ -47,8 +47,7 @@ def create_database():
 
     sql = "CREATE TABLE presenters (" \
           "id INTEGER NOT NULL UNIQUE," \
-          "first_name TEXT NOT NULL," \
-          "last_name TEXT NOT NULL," \
+          "name TEXT NOT NULL UNIQUE," \
           "organisation_id INTEGER," \
           "PRIMARY KEY(id AUTOINCREMENT)," \
           "FOREIGN KEY(organisation_id) REFERENCES organisations(id)" \
@@ -191,21 +190,21 @@ def load_database(events):
 
         # convert from comma separated string to a list
         presenters_list = event[0].split(",")
-        for presenter in presenters_list:
-            first_name, last_name = presenter.split()
-            values = [first_name, last_name, pres_org_id]
-            value = [first_name, last_name]
-            # Check if presenter first_name AND last_name exists before inserting into table
-            sql = "SELECT id FROM presenters WHERE first_name = ? AND last_name = ?"
+        for name in presenters_list:
+            # first_name, last_name = presenter.split()
+            values = [name, pres_org_id]
+            value = [name]
+            # Check if presenter name exists before inserting into table
+            sql = "SELECT id FROM presenters WHERE name = ?"
             cursor.execute(sql, value)
             # this data is returned as an empty list is it does not exist [],
             # or as a list containing a single-item tuple in the form [(n,)]
             data = cursor.fetchall()
             if len(data) == 0:
                 sql = "INSERT INTO presenters " \
-                      "(first_name, last_name, organisation_id) " \
+                      "(name, organisation_id) " \
                       "VALUES " \
-                      "(?, ?, ?)"
+                      "(?, ?)"
                 cursor.execute(sql, values)
                 db.commit()
                 # this will become the FK for the events_presenters table
@@ -235,7 +234,7 @@ def load_database(events):
 def display_presenters():
     db = sqlite3.connect("events3.db")
     cursor = db.cursor()
-    sql = "SELECT first_name, last_name, organisations.name " \
+    sql = "SELECT presenters.name, organisations.name " \
           "FROM presenters " \
           "INNER JOIN organisations ON presenters.organisation_id = organisations.id"
 
@@ -268,7 +267,7 @@ def display_events():
 def display_presenters_for_event(event_id):
     db = sqlite3.connect("events3.db")
     cursor = db.cursor()
-    sql = "SELECT events.name, first_name, last_name " \
+    sql = "SELECT events.name, presenters.name " \
           "FROM events " \
           "INNER JOIN events_presenters ON events_presenters.event_id = events.id " \
           "INNER JOIN presenters on events_presenters.presenter_id = presenters.id " \
@@ -287,15 +286,15 @@ def display_presenters_for_event(event_id):
     print("The presenters for this event are as follows:")
 
     for record in records:
-        # first name, last name
-        print(f"{record[1]} {record[2]}")
+        # name
+        print(f"{record[1]}")
 
 
 # Display a list of all events for a specific presenter
 def display_events_for_presenter(presenter_id):
     db = sqlite3.connect("events3.db")
     cursor = db.cursor()
-    sql = "SELECT first_name, last_name, events.name " \
+    sql = "SELECT presenters.name, events.name " \
           "FROM presenters " \
           "INNER JOIN events_presenters ON events_presenters.presenter_id = presenters.id " \
           "INNER JOIN events on events_presenters.event_id = events.id " \
@@ -305,14 +304,13 @@ def display_events_for_presenter(presenter_id):
     records = cursor.fetchall()
     db.close()
 
-    first_name = ""
-    last_name = ""
+
+    name = ""
     for _ in range(1):
         for record in records:
-            first_name = record[0]
-            last_name = record[1]
+            name = record[0]
 
-    print(f"The name of the presenter is: {first_name} {last_name}\n")
+    print(f"The name of the presenter is: {name}\n")
     print("The events for this presenter are as follows:")
     for record in records:
-        print(f"{record[2]}")
+        print(f"{record[1]}")
