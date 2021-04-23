@@ -1,19 +1,26 @@
 import matplotlib.pyplot as plt
 import random as rnd
 
+
 def data():
-    paths = {}
+    # paths = {}
     print("What type of line would you like (:, -- or -)?")
     line_style = input()
     print("What colour would you like (r, g or b)?")
     colour = input()
     print("What marker style would you like (o, s or ^)?")
     marker_style = input()
+    paths = {
+            'line_style': line_style,
+            'colour': colour,
+            'marker_style': marker_style
+    }
 
-    paths['line_style'] = line_style
-    paths['colour'] = colour
-    paths['marker_style'] = marker_style
+    # paths['line_style'] = line_style
+    # paths['colour'] = colour
+    # paths['marker_style'] = marker_style
     return paths
+
 
 def generate():
     print("How many lines would you like to display?")
@@ -27,10 +34,12 @@ def generate():
         plt.plot(x, y, style)
     plt.show()
 
+
 def run():
     print("Running...")
     generate()
     print("Done!")
+
 
 if __name__ == "__main__":
     run()
