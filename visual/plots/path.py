@@ -1,11 +1,14 @@
 import matplotlib.pyplot as plt
 
+
 def coordinate():
     print("Please enter a value for x")
     x = int(input())
     print("Please enter a value for y")
     y = int(input())
-    return (x,y)
+    # no need for brackets it is a tuple implicitly by using comma
+    return x, y
+
 
 def path():
     print("Retrieving path...")
@@ -17,12 +20,14 @@ def path():
         y_values.append(data[1])
     return [x_values, y_values]
 
+
 def run():
     values = path()
     plt.plot(values[0], values[1], 'ro--')
     plt.xlabel("x values")
     plt.ylabel("y values")
     plt.show()
+
 
 if __name__ == "__main__":
     run()
