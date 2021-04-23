@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 def small():
     x = [3, 4, 4, 3, 3]
     y = [3, 3, 4, 4, 3]
-    plt.plot(x, y, 'ro--')
+    plt.plot(x, y, 'ro:')
 
 def medium():
     a = [2, 5, 5, 2, 2]
