@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import csv
 
+
 def read_data():
     with open('temps.csv') as file:
         csv_reader = csv.reader(file)
@@ -19,7 +20,7 @@ def read_data():
 def run():
     data = read_data()
     # arrange vertically
-    fig, (ax1, ax2) = plt.subplots(2, 1)
+    fig, (ax1, ax2) = plt.subplots(2, 1, sharex='col')
     # share same x-axis
     # first plot week 1, second week 2
     ax1.plot(range(len(data['week1'])), data['week1'])
