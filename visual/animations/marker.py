@@ -8,12 +8,11 @@ def animate(frame):
     global ax
     # your code here (use ax to draw)
     ax.cla()
-    x = range(1, 10, 1)
-    y = range(1, 10, 1)
+
     ax.set_xlim(0, 10)
     ax.set_ylim(0, 10)
 
-    ax.plot(x[:frame], y[:frame], 'ro')
+    ax.plot(frame, frame, 'ro')
 
 
 def run():
@@ -25,4 +24,3 @@ def run():
 
 
 run()
-git
