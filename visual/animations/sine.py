@@ -9,10 +9,10 @@ def animate(frame):
     global ax
     ax.set_xlim(0, 720)
     ax.set_ylim(-1, 1)
-    x_in_degrees = np.arange(0, frame)
-    x_in_radians = x_in_degrees * (np.pi / 180)
-    y = np.sin(x_in_radians)
-    ax.plot(x_in_degrees, y)
+    x = np.arange(0, frame)
+    # x_in_radians = x_in_degrees * (np.pi / 180)
+    y = np.sin(x * np.pi / 180)
+    ax.plot(x, y)
 
 
 def run():
