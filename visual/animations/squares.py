@@ -14,6 +14,7 @@ def init():
 
 def animate(frame):
     global boxes, ax
+    ax.cla()
     box_index = frame % 3
     ax.set_xlim(0, 7)
     ax.set_ylim(0, 7)
